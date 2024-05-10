@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CountriesListView: View {
+    @EnvironmentObject private var navigationHandler: NavigationHandler
     @StateObject var viewModel = CountriesListViewModel()
     @State private var searchText = ""
     
@@ -20,13 +21,27 @@ struct CountriesListView: View {
                 case .loading:
                     ProgressView()
                 case .loaded(let array):
-                    List(array) { country in
-                        NavigationLink(destination: CountryDetailView(country: country)) {
-                            CountryCellView(country: country)
+//                    CountriesLoadedView(countries: array)
+                    NavigationStack(path: $navigationHandler.path) {
+                        List(array) { country in
+                                CountryCellView(country: country)
+                                .listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    navigationHandler.navigate(to: .countryDetail(country: country))
+                                }
+//                            }
+                            
                         }
-                        .listRowSeparator(.hidden)
+                        .listStyle(.plain)
+                        .navigationDestination(for: NavigationDestination.self) { destination in
+                            switch destination {
+                            case .countryList:
+                                CountriesListView()
+                            case .countryDetail(let country):
+                                CountryDetailView(country: country, viewModel: viewModel)
+                            }
+                        }
                     }
-                    .listStyle(.plain)
                 case .error(let error):
                     VStack {
                         Text("\(error.localizedDescription)")
@@ -48,5 +63,6 @@ struct CountriesListView: View {
 struct CountriesListView_Previews: PreviewProvider {
     static var previews: some View {
         CountriesListView()
+            .environmentObject(NavigationHandler())
     }
 }

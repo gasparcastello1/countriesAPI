@@ -106,5 +106,12 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
         }
     }
     
+    func onSaveTap(country: Country) {
+        if isSaved {
+            UserDefaults.standard.delete(country: country)
+        } else {
+            UserDefaults.standard.save(country: country)
+        }
+    }
     
 }

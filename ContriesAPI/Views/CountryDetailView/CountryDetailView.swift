@@ -22,6 +22,7 @@ struct CountryDetailView: View {
         var id: String { rawValue }
     }
     
+    private let viewModel: CountriesListViewModel
     let country: CountryDetail
     
     private var languages: String? {
@@ -44,6 +45,16 @@ struct CountryDetailView: View {
         formatter.locale = Locale.current
         formatter.groupingSeparator = "."
         return formatter.string(from: NSNumber(value: country.population ?? 0)) ?? ""
+    }
+    
+    @ViewBuilder
+    private func topBarTrailingItem() -> some View {
+        Button(action: {
+            viewModel.onSaveTap(country: country)
+        }, label: {
+            Image(systemName: "bookmark")
+//            Image(systemName: viewModel.isSaved ? SFAssets.bookmarkFill.rawValue : SFAssets.bookmark.rawValue)
+        })
     }
     
     @ViewBuilder
@@ -121,6 +132,9 @@ struct CountryDetailView: View {
             ToolbarItem(placement: .principal) {
                 Text(country.commonName)
                     .font(.headline)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                topBarTrailingItem()
             }
         }
     }

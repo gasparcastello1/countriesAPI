@@ -11,7 +11,7 @@ import SwiftUI
 struct ContriesAPIApp: App {
     var body: some Scene {
         WindowGroup {
-            CountriesListView()
+            ContainerView()
         }
     }
 }

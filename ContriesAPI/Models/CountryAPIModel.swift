@@ -59,11 +59,13 @@ struct Country: Identifiable, Decodable {
     }
 }
 
-struct CountryDetail: Identifiable, Equatable, Decodable {
+struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
     static func == (lhs: CountryDetail, rhs: CountryDetail) -> Bool {
         lhs.officialName == rhs.officialName
     }
-    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     let id = UUID()
     let flagURL: String
     let commonName: String
