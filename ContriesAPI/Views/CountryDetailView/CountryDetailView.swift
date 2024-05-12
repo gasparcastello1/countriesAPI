@@ -22,7 +22,10 @@ struct CountryDetailView: View {
         var id: String { rawValue }
     }
     
-    private let viewModel: CountriesListViewModel
+    @ObservedObject var viewModel: CountriesListViewModel
+    private var isSaved: Bool {
+        viewModel.favCountries.contains(country.officialName)
+    }
     let country: CountryDetail
     
     private var languages: String? {
@@ -50,10 +53,9 @@ struct CountryDetailView: View {
     @ViewBuilder
     private func topBarTrailingItem() -> some View {
         Button(action: {
-            viewModel.onSaveTap(country: country)
+            viewModel.onBookmarkToggle(country)
         }, label: {
-            Image(systemName: "bookmark")
-//            Image(systemName: viewModel.isSaved ? SFAssets.bookmarkFill.rawValue : SFAssets.bookmark.rawValue)
+            Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
         })
     }
     

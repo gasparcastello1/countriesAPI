@@ -1,13 +1,12 @@
 //
-//  ContentView.swift
+//  SavedCountriesListView.swift
 //  ContriesAPI
 //
-//  Created by Choudhary, Alok on 9/6/23.
+//  Created by Gaspar Castello on 10/05/2024.
 //
-
 import SwiftUI
 
-struct CountriesListView: View {
+struct SavedCountriesListView: View {
     @EnvironmentObject private var navigationHandler: NavigationHandler
     @StateObject var viewModel = CountriesListViewModel()
     @State private var searchText = ""
@@ -23,8 +22,18 @@ struct CountriesListView: View {
                 case .loaded(let array):
                     NavigationStack(path: $navigationHandler.path) {
                         List(array) { country in
-                            CountryCellView(viewModel: viewModel, country: country)
-                                .listRowSeparator(.hidden)
+                            if CountriesUDManager
+                                .shared
+                                .countries
+                                .contains(
+                                    country.officialName
+                                ) {
+                                CountryCellView(country: country)
+                                    .listRowSeparator(.hidden)
+                                    .onTapGesture {
+                                        navigationHandler.navigate(to: .countryDetail(country: country))
+                                    }
+                            }
                         }
                         .listStyle(.plain)
                         .navigationDestination(for: NavigationDestination.self) { destination in
@@ -40,20 +49,19 @@ struct CountriesListView: View {
                 }
                 Spacer()
             }
-            .navigationTitle("Countries")
+            .navigationTitle("Favs countries")
             .navigationBarTitleDisplayMode(.inline)
         }
         .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer, prompt: "type here to search")
         .onAppear {
-            navigationHandler.path = .init()
             viewModel.fetchAllCountries()
         }
     }
 }
 
-struct CountriesListView_Previews: PreviewProvider {
+struct SavedCountriesListView_Previews: PreviewProvider {
     static var previews: some View {
-        CountriesListView()
+        SavedCountriesListView()
             .environmentObject(NavigationHandler())
     }
 }

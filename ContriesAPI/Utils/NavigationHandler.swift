@@ -14,7 +14,7 @@ enum NavigationDestination: Hashable {
 
 final class NavigationHandler: ObservableObject {
     
-    @Published var path = NavigationPath()
+    @Published var path: NavigationPath = .init()
 
     func navigate(to navigationDestination: NavigationDestination) {
         path.append(navigationDestination)

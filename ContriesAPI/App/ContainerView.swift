@@ -19,7 +19,7 @@ struct ContainerView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
                 .environmentObject(listNavigationHandler)
-            SavedCountriesListView()
+            SavedListView()
                 .tabItem {
                     Label("Favourites", systemImage: "star")
                 }

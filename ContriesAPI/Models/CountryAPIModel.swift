@@ -34,30 +34,30 @@ struct CoatOfArms: Decodable {
     let svg: String?
 }
 
-struct Country: Identifiable, Decodable {
-    let id = UUID()
-    let flagURL: String
-    let commonName: String
-    let officialName: String
-    let capital: [String]
-    
-    enum CodingKeys: String, CodingKey {
-        case flags
-        case name
-        case capital
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let flagContainer = try container.decodeIfPresent(Flags.self, forKey: .flags) ?? Flags(png: "", svg: "", alt: "")
-        let nameContainer = try container.decode(Name.self, forKey: .name)
-        
-        flagURL = flagContainer.png
-        commonName = nameContainer.common
-        officialName = nameContainer.official
-        capital = try container.decodeIfPresent([String].self, forKey: .capital) ?? []
-    }
-}
+//struct Country: Identifiable, Decodable {
+//    let id = UUID()
+//    let flagURL: String
+//    let commonName: String
+//    let officialName: String
+//    let capital: [String]
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case flags
+//        case name
+//        case capital
+//    }
+//    
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let flagContainer = try container.decodeIfPresent(Flags.self, forKey: .flags) ?? Flags(png: "", svg: "", alt: "")
+//        let nameContainer = try container.decode(Name.self, forKey: .name)
+//        
+//        flagURL = flagContainer.png
+//        commonName = nameContainer.common
+//        officialName = nameContainer.official
+//        capital = try container.decodeIfPresent([String].self, forKey: .capital) ?? []
+//    }
+//}
 
 struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
     static func == (lhs: CountryDetail, rhs: CountryDetail) -> Bool {

@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  SavedListView.swift
 //  ContriesAPI
 //
-//  Created by Choudhary, Alok on 9/6/23.
+//  Created by Gaspar Castello on 11/05/2024.
 //
 
 import SwiftUI
 
-struct CountriesListView: View {
+struct SavedListView: View {
     @EnvironmentObject private var navigationHandler: NavigationHandler
     @StateObject var viewModel = CountriesListViewModel()
     @State private var searchText = ""
@@ -23,8 +23,10 @@ struct CountriesListView: View {
                 case .loaded(let array):
                     NavigationStack(path: $navigationHandler.path) {
                         List(array) { country in
-                            CountryCellView(viewModel: viewModel, country: country)
-                                .listRowSeparator(.hidden)
+                            if viewModel.isFav(country) {
+                                CountryCellView(viewModel: viewModel, country: country)
+                                    .listRowSeparator(.hidden)
+                            }
                         }
                         .listStyle(.plain)
                         .navigationDestination(for: NavigationDestination.self) { destination in
@@ -43,7 +45,7 @@ struct CountriesListView: View {
             .navigationTitle("Countries")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer, prompt: "type here to search")
+//        .searchable(text: $viewModel.searchTerm, placement: .navigationBarDrawer, prompt: "type here to search")
         .onAppear {
             navigationHandler.path = .init()
             viewModel.fetchAllCountries()
@@ -51,9 +53,9 @@ struct CountriesListView: View {
     }
 }
 
-struct CountriesListView_Previews: PreviewProvider {
+struct SavedListView_Previews: PreviewProvider {
     static var previews: some View {
-        CountriesListView()
+        SavedListView()
             .environmentObject(NavigationHandler())
     }
 }

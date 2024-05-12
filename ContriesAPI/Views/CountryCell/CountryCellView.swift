@@ -6,13 +6,19 @@
 //
 
 import SwiftUI
+import Combine
 
 struct CountryCellView: View {
+    @EnvironmentObject private var navigationHandler: NavigationHandler
+    @Environment(\.colorScheme) var colorScheme
+    
+    @ObservedObject var viewModel: CountriesListViewModel
     let country: CountryDetail
+    private var isSaved: Bool { viewModel.isFav(country) }
     
     var body: some View {
         
-        HStack(alignment: .center, spacing: 8, content: {
+        HStack(alignment: .top, spacing: 8, content: {
             AsyncImage(url: URL(string: country.flagURL)) { image in
                 image
                     .resizable()
@@ -32,24 +38,39 @@ struct CountryCellView: View {
                     .font(.footnote)
             })
             Spacer()
+            Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                .foregroundStyle(colorScheme == .light ? .blue : .white)
         })
         .padding(16)
         .frame(height: 100)
         .background {
             RoundedRectangle(cornerRadius: 8)
-                .fill(.white)
+                .fill(colorScheme == .light ? .white : .gray)
                 .shadow(color: Color.black.opacity(0.15),
                         radius: CGFloat(2),
                         x: 0,
                         y: 2)
         }
-//        .padding(.horizontal, 16)
-//        .padding(.vertical, 4)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 4)
+        .onTapGesture {
+            navigationHandler.navigate(to: .countryDetail(country: country))
+        }
         
     }
 }
-struct CountryCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        CountryCellView(country: CountryDetail.mocked)
-    }
+
+#Preview {
+    VStack(content: {
+        let viewModel = CountriesListViewModel.mocked
+        CountryCellView(viewModel: viewModel, country: CountryDetail.mocked)
+        
+        CountryCellView(viewModel: CountriesListViewModel(), country: CountryDetail.mocked)
+    })
 }
+//struct CountryCellView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = CountriesListViewModel.mocked
+//        CountryCellView(viewModel: viewModel, country: CountryDetail.mocked)
+//    }
+//}

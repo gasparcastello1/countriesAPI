@@ -17,6 +17,7 @@
 		493AA7882BE809690026136B /* CountryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AA7872BE809690026136B /* CountryCellView.swift */; };
 		493AA78B2BE815120026136B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AA78A2BE815120026136B /* View+Extensions.swift */; };
 		493AA78D2BE81EE50026136B /* CountryCellField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AA78C2BE81EE50026136B /* CountryCellField.swift */; };
+		496BED662BEFA9CE009C1303 /* SavedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496BED652BEFA9CE009C1303 /* SavedListView.swift */; };
 		4980B4862BE6CAB200AA0B25 /* CountryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980B4852BE6CAB200AA0B25 /* CountryDetailView.swift */; };
 		4980B4892BE6CADF00AA0B25 /* CountryAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980B4882BE6CADF00AA0B25 /* CountryAPIModel.swift */; };
 		4980B48B2BE6D2E600AA0B25 /* CountiesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980B48A2BE6D2E600AA0B25 /* CountiesListViewModel.swift */; };
@@ -24,9 +25,7 @@
 		4980B4912BE6E10700AA0B25 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980B4902BE6E10700AA0B25 /* APIConstants.swift */; };
 		4980B4942BE6E17D00AA0B25 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980B4932BE6E17D00AA0B25 /* NetworkManager.swift */; };
 		49C07D4E2BEE5CC800D41377 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07D4D2BEE5CC800D41377 /* ContainerView.swift */; };
-		49C07D502BEE5D4A00D41377 /* SavedCountriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07D4F2BEE5D4A00D41377 /* SavedCountriesListView.swift */; };
 		49C07D552BEE6DB000D41377 /* NavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07D542BEE6DB000D41377 /* NavigationHandler.swift */; };
-		49C07D572BEE71F000D41377 /* CountriesLoadedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07D562BEE71EF00D41377 /* CountriesLoadedView.swift */; };
 		49C07D592BEE7A8800D41377 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C07D582BEE7A8800D41377 /* UserDefaultsHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +60,7 @@
 		493AA7872BE809690026136B /* CountryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCellView.swift; sourceTree = "<group>"; };
 		493AA78A2BE815120026136B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		493AA78C2BE81EE50026136B /* CountryCellField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCellField.swift; sourceTree = "<group>"; };
+		496BED652BEFA9CE009C1303 /* SavedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedListView.swift; sourceTree = "<group>"; };
 		4980B4852BE6CAB200AA0B25 /* CountryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailView.swift; sourceTree = "<group>"; };
 		4980B4882BE6CADF00AA0B25 /* CountryAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryAPIModel.swift; sourceTree = "<group>"; };
 		4980B48A2BE6D2E600AA0B25 /* CountiesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountiesListViewModel.swift; sourceTree = "<group>"; };
@@ -68,9 +68,7 @@
 		4980B4902BE6E10700AA0B25 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		4980B4932BE6E17D00AA0B25 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		49C07D4D2BEE5CC800D41377 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
-		49C07D4F2BEE5D4A00D41377 /* SavedCountriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCountriesListView.swift; sourceTree = "<group>"; };
 		49C07D542BEE6DB000D41377 /* NavigationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHandler.swift; sourceTree = "<group>"; };
-		49C07D562BEE71EF00D41377 /* CountriesLoadedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesLoadedView.swift; sourceTree = "<group>"; };
 		49C07D582BEE7A8800D41377 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,7 +173,7 @@
 			children = (
 				25BA23992AA918C300E43918 /* CountriesListView.swift */,
 				4980B48A2BE6D2E600AA0B25 /* CountiesListViewModel.swift */,
-				49C07D562BEE71EF00D41377 /* CountriesLoadedView.swift */,
+				496BED652BEFA9CE009C1303 /* SavedListView.swift */,
 			);
 			path = CountriesListView;
 			sourceTree = "<group>";
@@ -186,7 +184,6 @@
 				493AA7862BE8095D0026136B /* CountryCell */,
 				25BA23C62AA919D900E43918 /* CountryDetailView */,
 				25BA23C22AA9193E00E43918 /* CountriesListView */,
-				49C07D4F2BEE5D4A00D41377 /* SavedCountriesListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,11 +389,10 @@
 				4980B4912BE6E10700AA0B25 /* APIConstants.swift in Sources */,
 				493AA78D2BE81EE50026136B /* CountryCellField.swift in Sources */,
 				4980B4862BE6CAB200AA0B25 /* CountryDetailView.swift in Sources */,
-				49C07D502BEE5D4A00D41377 /* SavedCountriesListView.swift in Sources */,
 				25BA239A2AA918C300E43918 /* CountriesListView.swift in Sources */,
 				493AA7882BE809690026136B /* CountryCellView.swift in Sources */,
 				493AA78B2BE815120026136B /* View+Extensions.swift in Sources */,
-				49C07D572BEE71F000D41377 /* CountriesLoadedView.swift in Sources */,
+				496BED662BEFA9CE009C1303 /* SavedListView.swift in Sources */,
 				49C07D592BEE7A8800D41377 /* UserDefaultsHelper.swift in Sources */,
 				4980B4942BE6E17D00AA0B25 /* NetworkManager.swift in Sources */,
 				49C07D4E2BEE5CC800D41377 /* ContainerView.swift in Sources */,

@@ -3,4 +3,118 @@
    uuid = "E0BD5545-BADC-41D3-9DFF-6B2EA83969B4"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AEA4759F-D048-41FD-AF82-D6653E61B872"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContriesAPI/Utils/UserDefaultsHelper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "countries"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EBD7D397-4BC6-43D3-8433-BB19571DF42B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "init(state:searchTerm:favCountries:searchTask:allCountries:service:searchedCountries:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EBD7D397-4BC6-43D3-8433-BB19571DF42B - 46d17be5e093c53a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContriesAPI.CountriesListViewModel.init(state: ContriesAPI.ViewModelState, searchTerm: Swift.String, favCountries: Swift.Array&lt;Swift.String&gt;, searchTask: Swift.Optional&lt;Swift.Task&lt;(), Swift.Never&gt;&gt;, allCountries: Swift.Array&lt;ContriesAPI.CountryDetail&gt;, service: ContriesAPI.CountryServiceProtocol, searchedCountries: Swift.Array&lt;ContriesAPI.CountryDetail&gt;) -&gt; ContriesAPI.CountriesListViewModel"
+                  moduleName = "ContriesAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaspi/Downloads/challenge/DSGTestV2_Template_iOS/ContriesAPI/ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "720">
+               </Location>
+               <Location
+                  uuid = "EBD7D397-4BC6-43D3-8433-BB19571DF42B - 46d17be5e093c53a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContriesAPI.CountriesListViewModel.init(state: ContriesAPI.ViewModelState, searchTerm: Swift.String, favCountries: Swift.Array&lt;Swift.String&gt;, searchTask: Swift.Optional&lt;Swift.Task&lt;(), Swift.Never&gt;&gt;, allCountries: Swift.Array&lt;ContriesAPI.CountryDetail&gt;, service: ContriesAPI.CountryServiceProtocol, searchedCountries: Swift.Array&lt;ContriesAPI.CountryDetail&gt;) -&gt; ContriesAPI.CountriesListViewModel"
+                  moduleName = "ContriesAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaspi/Downloads/challenge/DSGTestV2_Template_iOS/ContriesAPI/ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "568">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9FEBBBD-560F-4655-97B7-18B48BC7F284"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "bindToPublished()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B9FEBBBD-560F-4655-97B7-18B48BC7F284 - eb922c8abf374daa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;Swift.String&gt;) -&gt; () in ContriesAPI.CountriesListViewModel.bindToPublished() -&gt; ()"
+                  moduleName = "ContriesAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaspi/Downloads/challenge/DSGTestV2_Template_iOS/ContriesAPI/ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "348">
+               </Location>
+               <Location
+                  uuid = "B9FEBBBD-560F-4655-97B7-18B48BC7F284 - eb922c8abf374daa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Array&lt;Swift.String&gt;) -&gt; () in ContriesAPI.CountriesListViewModel.bindToPublished() -&gt; ()"
+                  moduleName = "ContriesAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gaspi/Downloads/challenge/DSGTestV2_Template_iOS/ContriesAPI/ContriesAPI/Views/CountriesListView/CountiesListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "316">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

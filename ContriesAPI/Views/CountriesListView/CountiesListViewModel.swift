@@ -10,8 +10,8 @@ import Combine
 
 protocol CountriesListViewModelProtocol: ObservableObject {
     var state: ViewModelState { get }
-    var searchTerm: String { get set }
-    
+    var searchTerm: String { get }
+    var favCountries: [String] { get }
     func fetchAllCountries()
     func searchCountries(byName name: String)
 }
@@ -42,6 +42,9 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
     
     @Published var state: ViewModelState
     @Published var searchTerm: String
+    @Published var favCountries: [String]
+//    @ObservedObject var countriesUDManager: CountriesUDManager
+    
     private var cancellables: Set<AnyCancellable> = []
     
     private var searchTask: Task<Void, Never>?
@@ -49,19 +52,9 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
     
     private var allCountries: [CountryDetail]
     private var searchedCountries: [CountryDetail]
-        
-    init(state: ViewModelState = .initial,
-         searchTerm: String = "",
-         searchTask: Task<Void, Never>? = nil,
-         allCountries: [CountryDetail] = [],
-         service: CountryServiceProtocol = CountryService(),
-         searchedCountries: [CountryDetail] = []) {
-        self.state = state
-        self.searchTerm = searchTerm
-        self.searchTask = searchTask
-        self.allCountries = allCountries
-        self.service = service
-        self.searchedCountries = searchedCountries
+    private var UDManager = CountriesUDManager.shared
+    
+    fileprivate func bindToPublished() {
         $searchTerm
             .dropFirst()
             .debounce(for: 0.5, scheduler: RunLoop.main)
@@ -72,6 +65,33 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
                 self.searchCountries(byName: searchTerm)
             }
             .store(in: &cancellables)
+        UDManager.$countriesPublisher
+            .receive(on: RunLoop.main)
+            .dropFirst()
+            .sink { [weak self] array in
+                guard let self else { return }
+                if array != self.favCountries {
+                    self.favCountries = array
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    init(state: ViewModelState = .initial,
+         searchTerm: String = "",
+         favCountries: [String] = CountriesUDManager.shared.countries,
+         searchTask: Task<Void, Never>? = nil,
+         allCountries: [CountryDetail] = [],
+         service: CountryServiceProtocol = CountryService(),
+         searchedCountries: [CountryDetail] = []) {
+        self.state = state
+        self.searchTerm = searchTerm
+        self.favCountries = favCountries
+        self.searchTask = searchTask
+        self.allCountries = allCountries
+        self.service = service
+        self.searchedCountries = searchedCountries
+        bindToPublished()
     }
 
     func fetchAllCountries() {
@@ -80,7 +100,7 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
                 state = .loading
                 let fetchedCountries = try await service.fetchAllCountries()
                 allCountries = fetchedCountries
-                state = .loaded(fetchedCountries)
+                state = .loaded(allCountries)
             } catch {
                 state = .error(NetworkError.noData)
             }
@@ -106,12 +126,32 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
         }
     }
     
-    func onSaveTap(country: Country) {
-        if isSaved {
-            UserDefaults.standard.delete(country: country)
-        } else {
-            UserDefaults.standard.save(country: country)
-        }
+    func isFav(_ country: CountryDetail) -> Bool {
+        favCountries.contains(country.officialName)
     }
     
+    func onBookmarkToggle(_ country: CountryDetail) {
+        isFav(country) ? deleteFromFavs(country) : saveOnFavs(country)
+    }
+
+    func saveOnFavs(_ country: CountryDetail) {
+        favCountries.append(country.officialName)
+        UDManager.save(country: country.officialName)
+    }
+
+    func deleteFromFavs(_ country: CountryDetail) {
+        favCountries.removeAll(where: { name in
+            name == country.officialName
+        })
+        UDManager.delete(country: country.officialName)
+    }
 }
+
+#if DEBUG
+extension CountriesListViewModel {
+    static var mocked: CountriesListViewModel {
+        let countryMocked = CountryDetail.mocked
+        return CountriesListViewModel(favCountries: [countryMocked.officialName])
+    }
+}
+#endif
