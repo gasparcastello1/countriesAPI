@@ -61,16 +61,10 @@ struct CountryCellView: View {
 }
 
 #Preview {
-    VStack(content: {
-        let viewModel = CountriesListViewModel.mocked
-        CountryCellView(viewModel: viewModel, country: CountryDetail.mocked)
-        
-        CountryCellView(viewModel: CountriesListViewModel(), country: CountryDetail.mocked)
-    })
-}
-//struct CountryCellView_Previews: PreviewProvider {
-//    static var previews: some View {
+//    VStack(content: {
 //        let viewModel = CountriesListViewModel.mocked
 //        CountryCellView(viewModel: viewModel, country: CountryDetail.mocked)
-//    }
-//}
+//        
+        CountryCellView(viewModel: CountriesListViewModel(), country: CountryDetail.mocked)
+//    })
+}

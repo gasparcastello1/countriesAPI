@@ -10,14 +10,16 @@ import SwiftUI
 struct CountryDetailView: View {
     
     private enum CountryPropRow: String, CaseIterable, Identifiable {
-        case capital = "Capital"
+        case coatOfArms = "Coat of Arms"
         case region = "Region"
         case subregion = "Subregion"
-        case languages = "Languages"
-        case currencies = "Currencies"
+        case capital = "Capital"
+        case area = "Area"
         case population = "Population"
+        case languages = "Languages"
         case carDriverSide = "Car driver side"
-        case coatOfArms = "Coat of Arms"
+        case currencies = "Currencies"
+        case timezones = "Time zones"
         
         var id: String { rawValue }
     }
@@ -50,6 +52,84 @@ struct CountryDetailView: View {
         return formatter.string(from: NSNumber(value: country.population ?? 0)) ?? ""
     }
     
+    private var timezones: String {
+        country.timezones?
+            .map { $0 }
+            .joined(separator: ", ") ?? ""
+    }
+    
+    @ViewBuilder
+    private var header: some View {
+        AsyncImage(url: URL(string: country.flagURL)) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } placeholder: {
+            ProgressView()
+        }
+        
+        .frame(width: 120, alignment: .leading)
+        .clipShape(.rect(cornerRadius: 4))
+    }
+
+    @ViewBuilder
+    private var title: some View {
+        VStack(alignment: .leading, spacing: 6, content: {
+            Text(country.commonName)
+                .setTitle()
+            Text(country.officialName)
+                .setContent()
+                .foregroundStyle(.gray)
+        })
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        HStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 16) {
+                CountryCellField(type: .image(title: CountryPropRow.coatOfArms.rawValue, imagePath: country.coatOfArmsURL ?? ""))
+                CountryCellField(type: .plainText(title: CountryPropRow.region.rawValue, description: country.region ?? ""))
+                CountryCellField(type: .plainText(title: CountryPropRow.subregion.rawValue, description: country.subregion ?? ""))
+                CountryCellField(type: .plainText(title: CountryPropRow.capital.rawValue, description: country.capital ?? ""))
+                CountryCellField(type: .plainText(title: CountryPropRow.area.rawValue, description: String(country.area ?? 0)))
+//                Spacer()
+            }
+            Spacer()
+            VStack(alignment: .leading, spacing: 16) {
+                CountryCellField(type: .plainText(title: CountryPropRow.population.rawValue, description: population))
+                CountryCellField(type: .plainText(title: CountryPropRow.languages.rawValue, description: languages ?? ""))
+                CountryCellField(type: .icons(title: CountryPropRow.carDriverSide.rawValue, side: country.carDriverSide))
+                CountryCellField(type: .plainText(title: CountryPropRow.currencies.rawValue, description: currencies ?? ""))
+                CountryCellField(type: .plainText(title: CountryPropRow.timezones.rawValue, description: timezones))
+//                Spacer()
+            }
+        }
+    }
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 16, content: {
+                header
+                title
+                content
+                Spacer()
+            })
+            .padding(.horizontal, 12)
+            .padding(.top, 24)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(country.commonName)
+                        .font(.headline)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    topBarTrailingItem()
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 24)
+    }
+    
     @ViewBuilder
     private func topBarTrailingItem() -> some View {
         Button(action: {
@@ -58,87 +138,8 @@ struct CountryDetailView: View {
             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
         })
     }
-    
-    @ViewBuilder
-    private var countryPropRow: some View {
-        ForEach(CountryPropRow.allCases, id: \.id) { prop in
-            switch prop {
-            case .capital:
-                CountryCellField(tuple: (prop.rawValue, country.capital))
-            case .region:
-                CountryCellField(tuple: (prop.rawValue, country.region ?? ""))
-            case .subregion:
-                CountryCellField(tuple: (prop.rawValue, country.subregion ?? ""))
-            case .languages:
-                CountryCellField(tuple: (prop.rawValue, languages ?? ""))
-            case .currencies:
-                CountryCellField(tuple: (prop.rawValue, currencies ?? ""))
-            case .population:
-                CountryCellField(tuple: (prop.rawValue, population))
-            case .carDriverSide:
-                CountryCellField(tuple: (prop.rawValue, country.carDriverSide ?? ""))
-            case .coatOfArms:
-                CountryCellField(tuple: (prop.rawValue, ""))
-            }
-        }
-    }
-    
-    var body: some View {
-        VStack(alignment: .center, spacing: 16, content: {
-            //Image
-            HStack {
-                AsyncImage(url: URL(string: country.flagURL)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                }
-                
-                .frame(width: 120, alignment: .center)
-                .clipShape(.rect(cornerRadius: 4))
-                Spacer()
-            }
-            //Title
-            HStack {
-                Text(country.commonName)
-                    .setTitle()
-                Text(country.officialName)
-                    .setContent()
-                    .foregroundStyle(.gray)
-                Spacer()
-            }
-            
-            //Prop Rows
-            countryPropRow
-            
-            //Coat of arms
-            if let coatOfArmsURL = country.coatOfArmsURL {
-                HStack {
-                AsyncImage(url: URL(string: coatOfArmsURL)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 50, alignment: .leading)
-                    Spacer()
-                }
-            }
-            Spacer()
-        })
-        .padding(.horizontal, 12)
-        .padding(.top, 24)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(country.commonName)
-                    .font(.headline)
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                topBarTrailingItem()
-            }
-        }
-    }
-    
+}
+
+#Preview {
+    CountryDetailView(viewModel: CountriesListViewModel(), country: CountryDetail.mocked)
 }

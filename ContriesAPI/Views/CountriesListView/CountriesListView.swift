@@ -22,7 +22,7 @@ struct CountriesListView: View {
                     ProgressView()
                 case .loaded(let array):
                     NavigationStack(path: $navigationHandler.path) {
-                        List(array) { country in
+                        List(array.sorted(by: { $0.officialName < $1.officialName } )) { country in
                             CountryCellView(viewModel: viewModel, country: country)
                                 .listRowSeparator(.hidden)
                         }

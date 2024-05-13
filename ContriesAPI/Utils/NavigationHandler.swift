@@ -20,16 +20,3 @@ final class NavigationHandler: ObservableObject {
         path.append(navigationDestination)
     }
 }
-
-extension View {
-//    func withNavigationDestinations() -> some View {
-//        self.navigationDestination(for: NavigationDestination.self) { destination in
-//            switch destination {
-//            case .countryList:
-//                CountriesListView()
-//            case .countryDetail(let country):
-//                CountryDetailView(country: country)
-//            }
-//        }
-//    }
-}

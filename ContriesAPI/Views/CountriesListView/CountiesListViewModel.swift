@@ -43,7 +43,6 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
     @Published var state: ViewModelState
     @Published var searchTerm: String
     @Published var favCountries: [String]
-//    @ObservedObject var countriesUDManager: CountriesUDManager
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -134,12 +133,12 @@ class CountriesListViewModel: CountriesListViewModelProtocol {
         isFav(country) ? deleteFromFavs(country) : saveOnFavs(country)
     }
 
-    func saveOnFavs(_ country: CountryDetail) {
+    private func saveOnFavs(_ country: CountryDetail) {
         favCountries.append(country.officialName)
         UDManager.save(country: country.officialName)
     }
 
-    func deleteFromFavs(_ country: CountryDetail) {
+    private func deleteFromFavs(_ country: CountryDetail) {
         favCountries.removeAll(where: { name in
             name == country.officialName
         })

@@ -14,7 +14,7 @@ class CountriesUDManager: ObservableObject {
         case savedCountries
     }
 
-    private let userDefaults = Foundation.UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
 
     @Published var countriesPublisher: [String] = []
     
@@ -26,7 +26,7 @@ class CountriesUDManager: ObservableObject {
             userDefaults.setValue(newValue, forKey: UDKey.savedCountries.rawValue)
         }
     }
-    
+
     func save(country: String) {
         if countries.contains(country) {
             return
@@ -34,7 +34,7 @@ class CountriesUDManager: ObservableObject {
         countries = countries + [country]
         countriesPublisher = countries
     }
-    
+
     func delete(country: String) {
         if !countries.contains(country) {
             return

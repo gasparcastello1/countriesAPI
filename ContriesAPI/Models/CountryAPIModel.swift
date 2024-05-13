@@ -26,7 +26,12 @@ struct Currency: Decodable {
 
 struct Car: Decodable {
     let signs: [String]?
-    let side: String?
+    let side: Side?
+}
+
+enum Side: String, Decodable {
+    case left
+    case right
 }
 
 struct CoatOfArms: Decodable {
@@ -76,8 +81,10 @@ struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
     let languages: [String: String]?
     let currencies: [String: Currency]?
     let population: Int?
-    let carDriverSide: String?
+    let carDriverSide: Side?
     let coatOfArmsURL: String?
+    let timezones: [String]?
+    let area: Double?
     
     enum CodingKeys: String, CodingKey {
         case flags
@@ -90,6 +97,8 @@ struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
         case population
         case car
         case coatOfArms
+        case timezones
+        case area
     }
     
     init(from decoder: Decoder) throws {
@@ -110,19 +119,25 @@ struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
         population = try container.decodeIfPresent(Int.self, forKey: .population) ?? 0
         carDriverSide = carContainer.side
         coatOfArmsURL = coatOfArms.png
+        timezones = try container.decodeIfPresent([String].self, forKey: .timezones)
+        area = try container.decodeIfPresent(Double.self, forKey: .area)
     }
     
-    init(flagURL: String,
-         commonName: String,
-         officialName: String,
-         capital: String,
-         region: String? = nil,
-         subregion: String? = nil,
-         languages: [String: String]? = nil,
-         currencies: [String: Currency]? = nil,
-         population: Int? = nil,
-         carDriverSide: String? = nil,
-         coatOfArmsURL: String? = nil) {
+    init(
+        flagURL: String,
+        commonName: String,
+        officialName: String,
+        capital: String,
+        region: String? = nil,
+        subregion: String? = nil,
+        languages: [String: String]? = nil,
+        currencies: [String: Currency]? = nil,
+        population: Int? = nil,
+        carDriverSide: Side? = nil,
+        coatOfArmsURL: String? = nil,
+        timezones: [String]? = nil,
+        area: Double? = nil
+    ) {
         self.flagURL = flagURL
         self.commonName = commonName
         self.officialName = officialName
@@ -134,6 +149,8 @@ struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
         self.population = population
         self.carDriverSide = carDriverSide
         self.coatOfArmsURL = coatOfArmsURL
+        self.timezones = timezones
+        self.area = area
     }
 }
 
@@ -141,17 +158,18 @@ struct CountryDetail: Identifiable, Equatable, Decodable, Hashable {
 extension CountryDetail {
     static var mocked: Self {
         CountryDetail(
-            flagURL: "https://example.com/flag.png",
-            commonName: "Country",
-            officialName: "Official Name",
-            capital: "Capital City",
-            region: "Region",
-            subregion: "Subregion",
+            flagURL: "https://flagcdn.com/w320/lv.png",
+            commonName: "Latvia",
+            officialName: "Official Name of Latvia",
+            capital: "Riga",
+            region: "Europe",
+            subregion: "Nordics",
             languages: ["en": "English", "fr": "French"],
             currencies: ["USD": Currency(name: "US Dollar", symbol: "$")],
-            population: 1000000,
-            carDriverSide: "Left",
-            coatOfArmsURL: "https://example.com/coat_of_arms.png"
+            population: 2456345,
+            carDriverSide: .left,
+            coatOfArmsURL: "https://mainfacts.com/media/images/coats_of_arms/lv.png",
+            timezones: ["UTC: +2"]
         )
     }
 }
