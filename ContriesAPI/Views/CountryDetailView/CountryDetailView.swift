@@ -78,15 +78,15 @@ struct CountryDetailView: View {
             Text(country.commonName)
                 .setTitle()
             Text(country.officialName)
-                .setContent()
+                .setSubtitle()
                 .foregroundStyle(.gray)
         })
     }
 
     @ViewBuilder
     private var content: some View {
-        HStack(spacing: 16) {
-            VStack(alignment: .leading, spacing: 16) {
+        HStack(alignment: .top, spacing: 16, content: {
+            VStack(alignment: .leading, spacing: 24) {
                 CountryCellField(type: .image(title: CountryPropRow.coatOfArms.rawValue, imagePath: country.coatOfArmsURL ?? ""))
                 CountryCellField(type: .plainText(title: CountryPropRow.region.rawValue, description: country.region ?? ""))
                 CountryCellField(type: .plainText(title: CountryPropRow.subregion.rawValue, description: country.subregion ?? ""))
@@ -95,7 +95,7 @@ struct CountryDetailView: View {
 //                Spacer()
             }
             Spacer()
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 24) {
                 CountryCellField(type: .plainText(title: CountryPropRow.population.rawValue, description: population))
                 CountryCellField(type: .plainText(title: CountryPropRow.languages.rawValue, description: languages ?? ""))
                 CountryCellField(type: .icons(title: CountryPropRow.carDriverSide.rawValue, side: country.carDriverSide))
@@ -103,12 +103,12 @@ struct CountryDetailView: View {
                 CountryCellField(type: .plainText(title: CountryPropRow.timezones.rawValue, description: timezones))
 //                Spacer()
             }
-        }
+        })
     }
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 16, content: {
+        HStack(alignment: .center, content: {
+            VStack(alignment: .leading, spacing: 24, content: {
                 header
                 title
                 content
@@ -126,7 +126,7 @@ struct CountryDetailView: View {
                 }
             }
             Spacer()
-        }
+        })
         .padding(.horizontal, 24)
     }
     
