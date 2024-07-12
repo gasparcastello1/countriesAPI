@@ -55,7 +55,7 @@ struct CountryDetailView: View {
     private var timezones: String {
         country.timezones?
             .map { $0 }
-            .joined(separator: ", ") ?? ""
+            .joined(separator: ", \n") ?? ""
     }
     
     @ViewBuilder
@@ -107,27 +107,29 @@ struct CountryDetailView: View {
     }
 
     var body: some View {
-        HStack(alignment: .center, content: {
-            VStack(alignment: .leading, spacing: 24, content: {
-                header
-                title
-                content
+        ScrollView {
+            HStack(alignment: .center, content: {
+                VStack(alignment: .leading, spacing: 24, content: {
+                    header
+                    title
+                    content
+                    Spacer()
+                })
+                .padding(.horizontal, 12)
+                .padding(.top, 24)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text(country.commonName)
+                            .font(.headline)
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        topBarTrailingItem()
+                    }
+                }
                 Spacer()
             })
-            .padding(.horizontal, 12)
-            .padding(.top, 24)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(country.commonName)
-                        .font(.headline)
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    topBarTrailingItem()
-                }
-            }
-            Spacer()
-        })
-        .padding(.horizontal, 24)
+            .padding(.horizontal, 24)
+        }
     }
     
     @ViewBuilder
